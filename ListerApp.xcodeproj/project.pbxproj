@@ -13,6 +13,7 @@
 		D7141F941F3BE8E300D807AD /* ListerApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7141F921F3BE8E300D807AD /* ListerApp.xcdatamodeld */; };
 		D7141F961F3BE8E300D807AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7141F951F3BE8E300D807AD /* Assets.xcassets */; };
 		D7141F991F3BE8E300D807AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7141F971F3BE8E300D807AD /* LaunchScreen.storyboard */; };
+		D7B4743C1F3BFD8F00C4746E /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B4743B1F3BFD8F00C4746E /* ItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		D7141F951F3BE8E300D807AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D7141F981F3BE8E300D807AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D7141F9A1F3BE8E300D807AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D7B4743B1F3BFD8F00C4746E /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		D7141F8A1F3BE8E300D807AD /* ListerApp */ = {
 			isa = PBXGroup;
 			children = (
+				D7B4743D1F3BFD9700C4746E /* View */,
 				D7141F8B1F3BE8E300D807AD /* AppDelegate.swift */,
 				D7141F8D1F3BE8E300D807AD /* ViewController.swift */,
 				D7141F8F1F3BE8E300D807AD /* Main.storyboard */,
@@ -65,6 +68,14 @@
 				D7141F921F3BE8E300D807AD /* ListerApp.xcdatamodeld */,
 			);
 			path = ListerApp;
+			sourceTree = "<group>";
+		};
+		D7B4743D1F3BFD9700C4746E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D7B4743B1F3BFD8F00C4746E /* ItemCell.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +151,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7B4743C1F3BFD8F00C4746E /* ItemCell.swift in Sources */,
 				D7141F941F3BE8E300D807AD /* ListerApp.xcdatamodeld in Sources */,
 				D7141F8E1F3BE8E300D807AD /* ViewController.swift in Sources */,
 				D7141F8C1F3BE8E300D807AD /* AppDelegate.swift in Sources */,
@@ -308,6 +320,7 @@
 				D7141F9F1F3BE8E300D807AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
