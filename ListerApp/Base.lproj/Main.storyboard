@@ -163,7 +163,9 @@
                                     <constraint firstAttribute="height" constant="30" id="Alw-ov-B4t"/>
                                     <constraint firstAttribute="width" constant="46" id="gwX-aJ-Jxj"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="addImage:" destination="0sV-qH-29K" eventType="touchUpInside" id="X4W-kH-Cev"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1LD-5h-vBP">
                                 <rect key="frame" x="124" y="81" width="180" height="30"/>
@@ -261,6 +263,7 @@
                         <outlet property="detailsField" destination="FEn-UF-lhY" id="GGi-W2-OxM"/>
                         <outlet property="priceField" destination="KqL-5D-0wt" id="0CI-NI-g0x"/>
                         <outlet property="storePicker" destination="Hr9-eu-qeG" id="5iI-GB-gKU"/>
+                        <outlet property="thumbImg" destination="gfy-dU-VN2" id="uFA-XK-kO4"/>
                         <outlet property="titleField" destination="1LD-5h-vBP" id="qpe-rI-ypi"/>
                     </connections>
                 </viewController>

@@ -9,15 +9,17 @@
 import UIKit
 import CoreData
 
-class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var storePicker: UIPickerView!
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var priceField: UITextField!
     @IBOutlet weak var detailsField: UITextField!
+    @IBOutlet weak var thumbImg: UIImageView!
+    
     
     var itemToEdit: Item?
-    
+    var imagePicker: UIImagePickerController!
     var stores = [Store]()
     
     override func viewDidLoad() {
@@ -25,6 +27,9 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         
         storePicker.dataSource = self
         storePicker.delegate = self
+        
+        imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
         
         //generateStores()
         getStores()
@@ -86,11 +91,17 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         
         let item: Item!
         
+        let picture = Image(context: context)
+        picture.image = thumbImg.image
+        
+        
         if itemToEdit == nil {
             item = Item(context: context)
         } else {
             item = itemToEdit
         }
+        
+        item.toImage = picture
         
         if let title = titleField.text {
             item.title = title
@@ -117,7 +128,7 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
             titleField.text = item.title
             priceField.text = "\(item.price)"
             detailsField.text = item.details
-//            thumgImg.image = item.toImage?.image as? UIImage
+            thumbImg.image = item.toImage?.image as? UIImage
             
             if let store = item.toStore {
                 
@@ -146,5 +157,19 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         
         _ = navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func addImage(_ sender: UIButton) {
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let img = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            thumbImg.image = img
+        }
+        
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
     
 }
