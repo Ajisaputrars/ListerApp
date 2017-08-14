@@ -17,7 +17,6 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
     @IBOutlet weak var detailsField: UITextField!
     @IBOutlet weak var thumbImg: UIImageView!
     
-    
     var itemToEdit: Item?
     var imagePicker: UIImagePickerController!
     var stores = [Store]()
@@ -86,7 +85,8 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
             
         }
     }
-    
+    //TODO: Confirmation for null input
+    //TODO: Number keyboard for price
     @IBAction func savePressed(_ sender: UIButton) {
         
         let item: Item!
@@ -102,6 +102,7 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         }
         
         item.toImage = picture
+        item.created = NSDate()
         
         if let title = titleField.text {
             item.title = title
@@ -121,6 +122,7 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         
         _ = navigationController?.popViewController(animated: true)
     }
+    //TODO: Auto Generate when Store is nil
     
     func loadDataItem(){
         if let item = itemToEdit {
@@ -148,7 +150,8 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         }
 
     }
-
+    
+    //TODO: Confirmation for the deletion
     @IBAction func deletePressed(_ sender: UIBarButtonItem) {
         if itemToEdit != nil {
             context.delete(itemToEdit!)

@@ -24,11 +24,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         //generateTestData()
         attemptFetch()
+        fetchResultController.delegate = self
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
-        configureCell(cell: cell, indexPath: indexPath)
+        let item = fetchResultController.object(at: indexPath)
+        cell.configureCell(item: item, indexPath: indexPath)
         return cell
     }
     
@@ -58,17 +61,32 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func attemptFetch(){
         let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
-        let dataSort = NSSortDescriptor(key: "created", ascending: false)
-        fetchRequest.sortDescriptors = [dataSort]
+        let dateSort = NSSortDescriptor(key: "created", ascending: false)
+        let priceSort = NSSortDescriptor(key: "price", ascending: true)
+        let titleSort = NSSortDescriptor(key: "title", ascending: true)
+
+
+        if segment.selectedSegmentIndex == 0 {
+            
+            fetchRequest.sortDescriptors = [dateSort]
+            
+        } else if segment.selectedSegmentIndex == 1 {
+            
+            fetchRequest.sortDescriptors = [priceSort]
+            
+        } else if segment.selectedSegmentIndex == 2 {
+            
+            fetchRequest.sortDescriptors = [titleSort]
+        }
         
-        let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         
-        controller.delegate = self
+//        fetchResultController.delegate = self
+        
         do {
-            try controller.performFetch()
-            self.fetchResultController = controller
+            try fetchResultController.performFetch()
         } catch let err as NSError {
-            print(err)
+            print("Errornya adalah \(err)")
         }
     }
     
@@ -81,7 +99,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let objs = fetchResultController.fetchedObjects , objs.count > 0 {
+        if let objs = fetchResultController.fetchedObjects { //, objs.count > 0 {
             let item = objs[indexPath.row]
             performSegue(withIdentifier: "ItemDetailsVC", sender: item)
         }
@@ -90,12 +108,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ItemDetailsVC" {
             if let destination = segue.destination as? ItemDetailVC {
-                if let item = sender as? Item {
-                    destination.itemToEdit = item
-                }
+                destination.itemToEdit = sender as? Item
             }
         }
     }
+    
+    @IBAction func segmentChange(_ sender: UISegmentedControl) {
+        attemptFetch()
+        tableView.reloadData()
+    }
+    
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
@@ -149,7 +171,5 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         item3.details = "Oh man this is a beautiful car. And one day, I willl own it"
         
         APPDELEGATE.saveContext()
-        
     }
-    
 }
