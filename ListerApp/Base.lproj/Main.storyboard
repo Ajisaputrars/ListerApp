@@ -252,6 +252,9 @@
                     <navigationItem key="navigationItem" title="Add / Edit" id="j2S-UL-C5d">
                         <barButtonItem key="rightBarButtonItem" systemItem="trash" id="Top-mH-9DC">
                             <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="deletePressed:" destination="0sV-qH-29K" id="t5S-et-PiR"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
