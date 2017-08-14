@@ -10,12 +10,12 @@ import UIKit
 import CoreData
 
 class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-
+    
     @IBOutlet weak var storePicker: UIPickerView!
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var priceField: UITextField!
     @IBOutlet weak var detailsField: UITextField!
-
+    
     var stores = [Store]()
     
     override func viewDidLoad() {
@@ -33,10 +33,8 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
         let store = stores[row]
         return store.name
-        
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -76,6 +74,35 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         } catch {
             
         }
+    }
+    
+    @IBAction func savePressed(_ sender: UIButton) {
+        
+        let item = Item(context: context)
+        
+        if let title = titleField.text {
+            
+            item.title = title
+            
+        }
+        
+        if let price = priceField.text {
+            
+            item.price = (price as NSString).doubleValue
+            
+        }
+        
+        if let details = detailsField.text {
+            
+            item.details = details
+            
+        }
+        
+        item.toStore = stores[storePicker.selectedRow(inComponent: 0)]
+        
+        APPDELEGATE.saveContext()
+        
+        _ = navigationController?.popViewController(animated: true)
     }
     
 }

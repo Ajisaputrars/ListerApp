@@ -28,12 +28,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
-        configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
+        configureCell(cell: cell, indexPath: indexPath)
         return cell
     }
     
-    func configureCell(cell: ItemCell, indexPath: NSIndexPath) {
-        let item = fetchResultController.object(at: indexPath as IndexPath)
+    func configureCell(cell: ItemCell, indexPath: IndexPath) {
+        let item = fetchResultController.object(at: indexPath)
         cell.configureCell(item: item)
     }
     
@@ -41,16 +41,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if let sections = fetchResultController.sections {
             return sections.count
         }
-        
-        return 0    }
+        return 0
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let sections = fetchResultController.sections {
-            
             let sectionInfo = sections[section]
             return sectionInfo.numberOfObjects
         }
-        
         return 0
     }
     
@@ -65,10 +63,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         
-        self.fetchResultController = controller
-        
+        controller.delegate = self
         do {
             try controller.performFetch()
+            self.fetchResultController = controller
         } catch let err as NSError {
             print(err)
         }
@@ -101,7 +99,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         case.update:
             if let indexPath = indexPath {
                 let cell = tableView.cellForRow(at: indexPath) as! ItemCell
-                configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
+                configureCell(cell: cell, indexPath: indexPath)
             }
             break
             
