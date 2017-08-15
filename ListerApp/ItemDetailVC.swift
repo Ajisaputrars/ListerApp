@@ -25,17 +25,23 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         super.viewDidLoad()
         setBackButtonText()
         
+        
         storePicker.dataSource = self
         storePicker.delegate = self
         
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
-        //getStores()
+        getStores()
+        
         
         if itemToEdit != nil {
             loadDataItem()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getStores()
     }
     
     func setBackButtonText(){
@@ -50,11 +56,6 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if stores.count == 0 {
-            getStores()
-            return stores.count
-        }
-        //getStores()
         return stores.count
     }
     
@@ -98,6 +99,12 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
     //TODO: Confirmation for null input
     //TODO: Number keyboard for price
     @IBAction func savePressed(_ sender: UIButton) {
+        
+        if titleField.text == "" || priceField.text == "" {
+            titleField.placeholder = "Tidak boleh kosong"
+            priceField.placeholder = "Jangan kosong dude"
+            return
+        }
         
         let item: Item!
         
@@ -158,17 +165,29 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
                 } while (index < stores.count)
             }
         }
-
     }
     
-    //TODO: Confirmation for the deletion
-    @IBAction func deletePressed(_ sender: UIBarButtonItem) {
+    func delete(){
         if itemToEdit != nil {
             context.delete(itemToEdit!)
             APPDELEGATE.saveContext()
         }
         
         _ = navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func deletePressed(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Delete ", message: "Wanna delete?", preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .default) { [weak self] (action:UIAlertAction) in
+            self?.delete()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func addImage(_ sender: UIButton) {
