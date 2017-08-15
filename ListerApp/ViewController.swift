@@ -23,15 +23,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tableView.delegate = self
         
         //generateTestData()
+        
         attemptFetch()
+        
         fetchResultController.delegate = self
 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
-        let item = fetchResultController.object(at: indexPath)
-        cell.configureCell(item: item, indexPath: indexPath)
+        configureCell(cell: cell, indexPath: indexPath)
         return cell
     }
     
@@ -67,21 +68,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
 
         if segment.selectedSegmentIndex == 0 {
-            
             fetchRequest.sortDescriptors = [dateSort]
-            
         } else if segment.selectedSegmentIndex == 1 {
-            
             fetchRequest.sortDescriptors = [priceSort]
-            
         } else if segment.selectedSegmentIndex == 2 {
-            
             fetchRequest.sortDescriptors = [titleSort]
         }
         
         fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        
-//        fetchResultController.delegate = self
         
         do {
             try fetchResultController.performFetch()

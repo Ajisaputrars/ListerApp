@@ -45,7 +45,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L1l-Yc-7Qs">
-                                                    <rect key="frame" x="8" y="8" width="304" height="109"/>
+                                                    <rect key="frame" x="8" y="8" width="359" height="109"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n4R-zb-Top">
                                                             <rect key="frame" x="8" y="8" width="93" height="93"/>
@@ -55,19 +55,19 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tesla Model S" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITu-3D-r5D">
-                                                            <rect key="frame" x="109" y="8" width="187" height="17"/>
+                                                            <rect key="frame" x="109" y="8" width="242" height="17"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$80000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUa-rB-AmM">
-                                                            <rect key="frame" x="109" y="30" width="187" height="17"/>
+                                                            <rect key="frame" x="109" y="30" width="242" height="17"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I hope my dream will come true and I will have this car again" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYv-eF-7XU">
-                                                            <rect key="frame" x="109" y="55" width="187" height="46"/>
+                                                            <rect key="frame" x="109" y="55" width="242" height="46"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="46" id="Ihn-Fa-U0D"/>
                                                             </constraints>

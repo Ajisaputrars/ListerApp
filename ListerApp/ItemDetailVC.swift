@@ -23,6 +23,7 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setBackButtonText()
         
         storePicker.dataSource = self
         storePicker.delegate = self
@@ -30,13 +31,14 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
-        //generateStores()
-        getStores()
+        //getStores()
         
         if itemToEdit != nil {
             loadDataItem()
         }
-        
+    }
+    
+    func setBackButtonText(){
         if let topItem = self.navigationController?.navigationBar.topItem {
             topItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
         }
@@ -48,6 +50,11 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if stores.count == 0 {
+            getStores()
+            return stores.count
+        }
+        //getStores()
         return stores.count
     }
     
@@ -80,9 +87,12 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         let fetchRequest: NSFetchRequest = Store.fetchRequest()
         do {
             self.stores = try context.fetch(fetchRequest)
+            if stores.count == 0 {
+                generateStores()
+            }
             self.storePicker.reloadAllComponents()
-        } catch {
-            
+        } catch let err as NSError {
+            print("Errornya adalah \(err)")
         }
     }
     //TODO: Confirmation for null input
@@ -173,6 +183,4 @@ class ItemDetailVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         
         imagePicker.dismiss(animated: true, completion: nil)
     }
-    
-    
 }
