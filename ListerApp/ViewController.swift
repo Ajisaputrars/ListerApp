@@ -127,6 +127,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if let indexPath = indexPath {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
+            tableView.reloadData()
             break
             
         case.update:
