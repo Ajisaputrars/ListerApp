@@ -25,10 +25,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //generateTestData()
         
         attemptFetch()
-        
-        fetchResultController.delegate = self
-
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        attemptFetch()
+//        tableView.reloadData()
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
@@ -65,8 +67,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let dateSort = NSSortDescriptor(key: "created", ascending: false)
         let priceSort = NSSortDescriptor(key: "price", ascending: true)
         let titleSort = NSSortDescriptor(key: "title", ascending: true)
-
-
+        
         if segment.selectedSegmentIndex == 0 {
             fetchRequest.sortDescriptors = [dateSort]
         } else if segment.selectedSegmentIndex == 1 {
@@ -75,12 +76,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             fetchRequest.sortDescriptors = [titleSort]
         }
         
-        fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        
+        controller.delegate = self
+        
+        self.fetchResultController = controller
         
         do {
-            try fetchResultController.performFetch()
-        } catch let err as NSError {
-            print("Errornya adalah \(err)")
+            
+            try controller.performFetch()
+            
+        } catch {
+            
+            let error = error as NSError
+            print("\(error)")
+            
         }
     }
     
